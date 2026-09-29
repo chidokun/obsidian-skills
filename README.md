@@ -12,6 +12,8 @@ It installs into **Claude Code**, **Cursor**, and any other agent that supports 
 |---|---|---|
 | [`obsidian-doc-to-note`](skills/obsidian-doc-to-note/SKILL.md) | Convert a PDF, web page, article, or raw text into atomic, linked Obsidian notes. `--doc` (default) for ordinary documents, `--book` for multi-chapter books/courses (adds MOCs per chapter). | [en](skills/obsidian-doc-to-note/en/SKILL.md) |
 | [`obsidian-explain-to-note`](skills/obsidian-explain-to-note/SKILL.md) | Research a concept or keyword on the web and save it as atomic notes. Depth is controlled with `effort:low\|medium\|high`. | [en](skills/obsidian-explain-to-note/en/SKILL.md) |
+| [`obsidian-socratic-learn`](skills/obsidian-socratic-learn/SKILL.md) | Learn a concept interactively with the Socratic method: the agent asks guiding questions, you reason out the answers, and what you worked out is saved as atomic notes. | [en](skills/obsidian-socratic-learn/en/SKILL.md) |
+| [`obsidian-feynman-learn`](skills/obsidian-feynman-learn/SKILL.md) | Learn a concept interactively with the Feynman technique: you explain it simply, the agent plays a curious newcomer to expose gaps, and your final explanation is saved as atomic notes. | [en](skills/obsidian-feynman-learn/en/SKILL.md) |
 
 ### Usage examples
 
@@ -20,9 +22,11 @@ It installs into **Claude Code**, **Cursor**, and any other agent that supports 
 /obsidian-doc-to-note --book ~/Downloads/atomic-habits.pdf 
 /obsidian-explain-to-note CAP theorem
 /obsidian-explain-to-note event sourcing effort:medium
+/obsidian-socratic-learn CAP theorem
+/obsidian-feynman-learn event sourcing
 ```
 
-Or just ask in natural language (in Vietnamese), e.g. "lưu bài này thành note", "giải thích Raft thành note".
+Or just ask in natural language (in Vietnamese), e.g. "lưu bài này thành note", "giải thích Raft thành note", "hỏi tôi về Raft", "để tôi giải thích Raft".
 
 ## Second brain template
 

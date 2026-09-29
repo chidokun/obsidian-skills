@@ -1,7 +1,8 @@
 > 🇬🇧 **Reference translation** of [`../SKILL.md`](../SKILL.md) (Vietnamese). The Vietnamese file is the source of truth and the one agents load.
 >
 > - **name:** `obsidian-doc-to-note`
-> - **description:** Convert documents (PDF, web pages, articles, plain text) into structured Obsidian notes. Use when the user wants to save a document as a note, create notes from a URL, file, or given text, or says "save as note", "create a note", "summarize this document".
+> - **description:** Convert documents (PDF, web pages, articles, plain text) into structured Obsidian notes. Use when the user wants to save a document as a note, create notes from a URL, file, or given text, or says "save as note", "create a note", "summarize this document". The `--book` flag is for multi-chapter books/courses, `--doc` (default) for ordinary documents.
+> - **argument-hint:** `[--book|--doc] <URL | file path | text>`
 > - **allowed-tools:** `Read`, `Write`, `Glob`, `WebFetch`, `Bash(find *)`
 
 ## Goal
@@ -19,13 +20,27 @@ Convert a document (PDF, web page, article, text) into Obsidian-compatible markd
 - Documenting code.
 - Creating a changelog.
 
+## Parameters
+
+Flags may appear anywhere in `$ARGUMENTS`; the rest is the source (a URL, a file path, or text).
+
+| Flag | Meaning | Note structure |
+|---|---|---|
+| `--doc` (default) | Ordinary document: article, web page, text, short PDF | Atomic notes, no chapter MOCs |
+| `--book` | A book (or course) with multiple chapters | Top-level MOC + one MOC per chapter + atomic notes |
+
+- No flag → treated as `--doc`. Never guess that something is a book.
+- Both `--book` and `--doc` → ask the user which one to use.
+
+Examples:
+
+- `https://example.com/some-article`
+- `--book ~/Downloads/atomic-habits.pdf`
+- `--doc notes.txt`
+
 ## Zettelkasten principles
 
-Every note must follow these principles:
-
-- **Atomic**: each note holds **exactly one idea**. If the source contains several ideas, split them into separate notes.
-- **Write in your own words**: do not copy verbatim. Rephrase so the user can understand it easily — the user will edit it later.
-- **Linking**: actively look for existing notes in the Vault related to the idea and attach `[[wiki-link]]`s to them.
+Follow the [Zettelkasten principles](../../../docs/en/Zettelkasten-Principles.md): one idea per note (atomic), written in your own words, actively linked with `[[wiki-link]]`s to existing notes in the Vault.
 
 ## Frontmatter defaults
 
@@ -35,21 +50,24 @@ If the `[[Hướng dẫn sử dụng]]` (User guide) file cannot be found in the
 
 ## Instructions
 
-Convert `$ARGUMENTS` (a URL, a file path, or raw text) into notes.
+Convert `$ARGUMENTS` (a URL, a file path, or raw text, plus the `--book` or `--doc` flag) into notes.
 
 ### Step 1 — Analyze the input
 
+- Split the `--book` / `--doc` flag out of `$ARGUMENTS` (default `--doc`); the rest is the source
 - URL → fetch the content with WebFetch
 - File path → read it with Read
 - Raw text → use it directly
 
-### Step 2 — Determine the document type and the note structure
+### Step 2 — Choose the note structure from the flag
 
-| Document type | Note structure |
-|---|---|
-| Book / course with multiple chapters | Top-level MOC + one MOC per chapter + atomic notes |
-| Single article / web page | Atomic notes (no MOC needed) |
-| Short piece of text | A single atomic note |
+| Flag | Document type | Note structure |
+|---|---|---|
+| `--book` | Book / course with multiple chapters | Top-level MOC + one MOC per chapter + atomic notes |
+| `--doc` | Single article / web page | Atomic notes (no MOC needed) |
+| `--doc` | Short piece of text | A single atomic note |
+
+The flag decides the structure; do not re-guess it from the content. If `--book` is given but no chapters can be identified, ask the user instead of falling back to `--doc`.
 
 ### Step 3 — Find links in the Vault
 
@@ -57,7 +75,8 @@ For each important idea/concept in the content, use Grep to find `.md` files in 
 
 ### Step 4 — Write and save the notes
 
-- Create one folder named after the document and save all notes into it (flat, no subfolders).
+- If there is only one note, do not create a document folder; just save the note.
+- If there are several notes, create one folder named after the document and save all notes into it (flat, no subfolders).
 - The user will move it to the right folder after reviewing.
 
 ### Step 5 — Review
@@ -78,10 +97,12 @@ For each important idea/concept in the content, use Grep to find `.md` files in 
 
 ### Note-splitting rules
 
-- Follow the Zettelkasten principles above.
+- Follow the Zettelkasten principles.
 - Exercises, quizzes, checklists, and recommendations mentioned in the document must be split into their own note and linked from the corresponding chapter MOC.
 
 ### Output format
+
+The top-level MOC and chapter MOC are used only with `--book`. With `--doc`, use only the atomic note.
 
 **Top-level MOC** — file name: `name of the book/course/document`
 

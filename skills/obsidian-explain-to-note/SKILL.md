@@ -59,11 +59,8 @@ Nếu thiếu chủ đề → hỏi người dùng trước khi tiếp tục.
 
 ## Nguyên tắc Zettelkasten
 
-Mỗi note phải tuân theo các nguyên tắc sau:
+Tuân theo [nguyên tắc Zettelkasten](../../docs/Zettelkasten-Principles.md): mỗi note một ý (atomic), viết bằng lời của mình, chủ động gắn `[[wiki-link]]` tới note đã có trong Vault. Ngoài ra, skill này có thêm một nguyên tắc riêng:
 
-- **Tính nguyên tử (Atomic)**: Mỗi note chỉ chứa **một ý tưởng duy nhất**. Chủ đề phức tạp → tách thành nhiều note riêng biệt.
-- **Viết bằng lời của mình**: Không copy nguyên văn từ web. Tổng hợp và diễn đạt lại — người dùng sẽ edit sau.
-- **Liên kết (Linking)**: Chủ động tìm và gắn `[[wiki-link]]` đến các note đã có trong Vault liên quan đến ý tưởng.
 - **Ghi nguồn**: Cuối mỗi note, thêm mục `## Nguồn tham khảo` với URL đã dùng (không paste nguyên văn).
 
 ## Giá trị mặc định cho frontmatter
@@ -133,7 +130,7 @@ Với mỗi ý tưởng/khái niệm quan trọng, dùng Grep tìm file `.md` tr
 
 ### Quy tắc chia tách note
 
-- Tuân theo nguyên tắc Zettelkasten như ở trên
+- Tuân theo nguyên tắc Zettelkasten
 - Định nghĩa, nguyên lý, ví dụ, so sánh, mẹo ghi nhớ — mỗi loại có thể là note riêng nếu đủ dài
 - Với `effort:low`: gộp nhẹ nếu chủ đề thực sự chỉ có một ý
 

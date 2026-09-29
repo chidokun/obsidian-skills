@@ -1,6 +1,7 @@
 ---
 name: "obsidian-doc-to-note"
-description: "Chuyển đổi tài liệu (PDF, trang web, bài viết, văn bản thô) thành ghi chú Obsidian có cấu trúc. Dùng khi người dùng muốn lưu tài liệu thành note, tạo note từ URL hoặc file hoặc text cho sẵn, hoặc nói 'lưu thành note', 'tạo note', 'tóm tắt tài liệu này'."
+description: "Chuyển đổi tài liệu (PDF, trang web, bài viết, văn bản thô) thành ghi chú Obsidian có cấu trúc. Dùng khi người dùng muốn lưu tài liệu thành note, tạo note từ URL hoặc file hoặc text cho sẵn, hoặc nói 'lưu thành note', 'tạo note', 'tóm tắt tài liệu này'. Cờ --book cho sách/khóa học nhiều chương, --doc (mặc định) cho tài liệu thường."
+argument-hint: "[--book|--doc] <URL | đường dẫn file | văn bản>"
 allowed-tools: [Read, Write, Glob, WebFetch, Bash(find *)]
 ---
 
@@ -19,13 +20,27 @@ Chuyển đổi tài liệu (PDF, trang web, bài viết, văn bản) thành ghi
 - Tài liệu hóa code.
 - Tạo changelog.
 
+## Tham số
+
+Cờ đặt ở bất kỳ vị trí nào trong `$ARGUMENTS`, phần còn lại là nguồn (URL, đường dẫn file hoặc văn bản).
+
+| Cờ | Ý nghĩa | Cấu trúc note |
+|---|---|---|
+| `--doc` (mặc định) | Tài liệu thường: bài viết, trang web, văn bản, PDF ngắn | Atomic notes, không có MOC chương |
+| `--book` | Sách (hoặc khóa học) có nhiều chương | MOC lớn + MOC từng chương + atomic notes |
+
+- Không có cờ → coi là `--doc`. Không tự đoán là sách.
+- Có cả `--book` và `--doc` → hỏi lại người dùng muốn dùng cờ nào.
+
+Ví dụ:
+
+- `https://example.com/bai-viet`
+- `--book ~/Downloads/atomic-habits.pdf`
+- `--doc ghi-chu.txt`
+
 ## Nguyên tắc Zettelkasten
 
-Mỗi note phải tuân theo các nguyên tắc sau:
-
-- **Tính nguyên tử (Atomic)**: Mỗi note chỉ chứa **một ý tưởng duy nhất**. Nếu tài liệu gốc có nhiều ý, tách thành nhiều note riêng biệt.
-- **Viết bằng lời của mình**: Không copy nguyên văn. Diễn đạt lại để người dùng dễ hiểu — người dùng sẽ edit lại sau.
-- **Liên kết (Linking)**: Chủ động tìm và gắn `[[wiki-link]]` đến các note đã có trong Vault liên quan đến ý tưởng.
+Tuân theo [nguyên tắc Zettelkasten](../../docs/Zettelkasten-Principles.md): mỗi note một ý (atomic), viết bằng lời của mình, chủ động gắn `[[wiki-link]]` tới note đã có trong Vault.
 
 ## Giá trị mặc định cho frontmatter
 
@@ -35,21 +50,24 @@ Nếu không tìm thấy file `[[Hướng dẫn sử dụng]]` trong Vault, dùn
 
 ## Hướng dẫn
 
-Chuyển đổi `$ARGUMENTS` (URL, đường dẫn file, hoặc nội dung văn bản) thành ghi chú.
+Chuyển đổi `$ARGUMENTS` (URL, đường dẫn file, hoặc nội dung văn bản, kèm cờ `--book` hoặc `--doc`) thành ghi chú.
 
 ### Bước 1 — Phân tích đầu vào
 
+- Tách cờ `--book` / `--doc` ra khỏi `$ARGUMENTS` (mặc định `--doc`), phần còn lại là nguồn
 - URL → dùng WebFetch lấy nội dung
 - Đường dẫn file → dùng Read
 - Văn bản thô → dùng trực tiếp
 
-### Bước 2 — Xác định loại tài liệu và cấu trúc note cần tạo
+### Bước 2 — Chọn cấu trúc note theo cờ
 
-| Loại tài liệu | Cấu trúc note |
-|---|---|
-| Sách / khóa học có nhiều chương | MOC lớn + MOC từng chương + atomic notes |
-| Bài viết / trang web đơn lẻ | Atomic notes (không cần MOC) |
-| Đoạn văn bản ngắn | Một atomic note duy nhất |
+| Cờ | Loại tài liệu | Cấu trúc note |
+|---|---|---|
+| `--book` | Sách / khóa học có nhiều chương | MOC lớn + MOC từng chương + atomic notes |
+| `--doc` | Bài viết / trang web đơn lẻ | Atomic notes (không cần MOC) |
+| `--doc` | Đoạn văn bản ngắn | Một atomic note duy nhất |
+
+Cờ quyết định cấu trúc, không suy đoán lại từ nội dung. Nếu với `--book` không tách được chương, hỏi người dùng thay vì chuyển sang `--doc`.
 
 ### Bước 3 — Tìm liên kết trong Vault
 
@@ -57,7 +75,8 @@ Với mỗi ý tưởng/khái niệm quan trọng trong nội dung, dùng Grep t
 
 ### Bước 4 — Viết và lưu note
 
-- Tạo 1 thư mục tên tài liệu, lưu tất cả note vào đó (phẳng, không có thư mục con).
+- Nếu xác định chỉ có 1 note thì không tạo thư mục tài liệu, chỉ lưu note.
+- Nếu xác định có nhiều note thì tạo 1 thư mục tên tài liệu, lưu tất cả note vào đó (phẳng, không có thư mục con).
 - Người dùng sẽ tự chuyển sang thư mục phù hợp sau khi kiểm tra.
 
 ### Bước 5 — Kiểm tra lại
@@ -78,10 +97,12 @@ Với mỗi ý tưởng/khái niệm quan trọng trong nội dung, dùng Grep t
 
 ### Quy tắc chia tách note
 
-- Tuân theo nguyên tắc Zettelkasten như ở trên.
+- Tuân theo nguyên tắc Zettelkasten.
 - Các bài tập, trắc nghiệm, checklist, đề xuất được đề cập trong tài liệu cần được tách riêng ra thành 1 note và liên kết vào MOC chương tương ứng.
 
 ### Định dạng đầu ra
+
+`MOC lớn` và `MOC chương` chỉ dùng với `--book`. Với `--doc` chỉ dùng `Atomic note`.
 
 **MOC lớn** — tên file: `tên quyển sách/khóa học/tài liệu`
 

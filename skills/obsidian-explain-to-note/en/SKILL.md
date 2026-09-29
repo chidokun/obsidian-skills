@@ -59,11 +59,8 @@ If the topic is missing → ask the user before continuing.
 
 ## Zettelkasten principles
 
-Every note must follow these principles:
+Follow the [Zettelkasten principles](../../../docs/en/Zettelkasten-Principles.md): one idea per note (atomic), written in your own words, actively linked with `[[wiki-link]]`s to existing notes in the Vault. In addition, this skill has one principle of its own:
 
-- **Atomic**: each note holds **exactly one idea**. A complex topic → split into separate notes.
-- **Write in your own words**: do not copy from the web verbatim. Synthesize and rephrase — the user will edit later.
-- **Linking**: actively look for existing notes in the Vault related to the idea and attach `[[wiki-link]]`s to them.
 - **Cite sources**: at the end of each note add a `## Nguồn tham khảo` (References) section with the URLs used (do not paste the text).
 
 ## Frontmatter defaults
@@ -133,7 +130,7 @@ For each important idea/concept, use Grep to find `.md` files in the Vault whose
 
 ### Note-splitting rules
 
-- Follow the Zettelkasten principles above
+- Follow the Zettelkasten principles
 - Definitions, principles, examples, comparisons, memory aids — each may be its own note if long enough
 - For `effort:low`: merge lightly if the topic really has only one idea
 

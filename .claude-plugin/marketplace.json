@@ -1,0 +1,16 @@
+{
+  "name": "obsidian-skills",
+  "owner": { "name": "Nguyễn Tuấn" },
+  "metadata": {
+    "description": "Obsidian skills for Claude Code, Cursor and other AI coding agents."
+  },
+  "plugins": [
+    {
+      "name": "obsidian-skills",
+      "source": "./",
+      "description": "Bộ skill Obsidian (tiếng Việt): chuyển tài liệu/khái niệm thành note Zettelkasten và ghi note đúng convention.",
+      "version": "0.1.0",
+      "keywords": ["obsidian", "zettelkasten", "notes"]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "obsidian-skills",
+  "owner": { "name": "Nguyễn Tuấn" },
+  "plugins": [
+    {
+      "name": "obsidian-skills",
+      "source": ".",
+      "description": "Bộ skill Obsidian (tiếng Việt): chuyển tài liệu/khái niệm thành note Zettelkasten và ghi note đúng convention."
+    }
+  ]
+}

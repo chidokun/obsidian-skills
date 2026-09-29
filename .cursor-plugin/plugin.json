@@ -1,0 +1,11 @@
+{
+  "name": "obsidian-skills",
+  "version": "0.1.0",
+  "description": "Bộ skill Obsidian (tiếng Việt): chuyển tài liệu/khái niệm thành note Zettelkasten và ghi note đúng convention.",
+  "author": { "name": "Nguyễn Tuấn" },
+  "homepage": "https://github.com/chidokun/obsidian-skills",
+  "repository": "https://github.com/chidokun/obsidian-skills",
+  "license": "MIT",
+  "keywords": ["obsidian", "zettelkasten", "notes", "skills"],
+  "skills": "./skills/"
+}

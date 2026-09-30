@@ -62,7 +62,8 @@ Guide the user through learning `$ARGUMENTS` with questions, then turn the resul
 
 ### Step 2 — Prepare (not shown to the user)
 
-- Use **WebSearch** to find reputable sources (official docs, technical articles, Wikipedia) and **WebFetch** to read the 1–3 most relevant in detail. The purpose is for **the agent itself to be correct**, enough to notice when the user is wrong.
+- Check whether the Vault already has related notes; if so, use them.
+- Also use **WebSearch** to find reputable sources (official docs, technical articles, Wikipedia) and **WebFetch** to read the 1–3 most relevant in detail. The purpose is for **the agent itself to be correct**, enough to notice when the user is wrong.
 - Quickly draft an internal "idea map": 3–6 core ideas and common misconceptions. Keep it internal and **do not reveal it** before the user has reasoned it out.
 
 ### Step 3 — Diagnose the starting point
@@ -112,21 +113,19 @@ Present briefly to the user:
 
 Ideas not firmly grasped go into "open questions"; **do not** create an atomic note asserting them as understood.
 
-### Step 6 — Find links in the Vault
+### Step 6 — Find links in the Vault, create notes if needed
+
+- Check whether the notes in the Vault already exist, or already cover the ideas as the user has accurately learned them.
+- If complete notes already exist, skip and finish.
+- If there is no note, or an existing note is not fully up to date, ask the user whether they want to update or create new ones.
+  - Knowledge that already has a note and only needs additions → suggest adding the knowledge to those notes; additional notes may be created depending on the knowledge.
+  - Entirely new knowledge that needs several notes to explain and store → suggest the user create a folder and create the notes.
 
 For each important idea, use Grep to find `.md` files in the Vault whose name or content matches the keyword. Only attach a `[[wiki-link]]` when a genuinely related note is found — never link to a note that does not exist.
 
-### Step 7 — Write and save the notes
+### Step 7 — Review
 
-- Each idea the user came to understand becomes one atomic note; its content is based on the user's answers, corrected for accuracy and clarity
-- If there is only 1 note, do not create a folder — just save the note
-- If there are several notes (3 or more), create a topic MOC; create one folder named after the topic (lowercase, no diacritics, short) and save all notes into it (flat, no subfolders)
-- The user will move it to the right folder after reviewing
-- The **Guiding questions** section in each atomic note comes from the questions that actually helped the user understand that idea, for self-testing during later review
-
-### Step 8 — Review
-
-- Re-read the notes: no false statements, one idea per note
+- Re-read the notes: check whether the notes cover all the necessary ideas.
 - Confirm every `[[wiki-link]]` points to an existing note or one created in the same batch
 - Tell the user the list of notes created and their paths
 

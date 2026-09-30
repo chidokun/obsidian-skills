@@ -9,7 +9,7 @@
       "name": "obsidian-skills",
       "source": "./",
       "description": "Bộ skill Obsidian (tiếng Việt): chuyển tài liệu/khái niệm thành note Zettelkasten và ghi note đúng convention.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "keywords": ["obsidian", "zettelkasten", "notes"]
     }
   ]

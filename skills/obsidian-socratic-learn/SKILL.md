@@ -111,7 +111,7 @@ Trình bày ngắn cho người dùng:
 - Những hiểu lầm đã sửa
 - Câu hỏi còn mở (nếu có)
 
-Chưa nắm chắc ý nào thì ghi vào "câu hỏi còn mở", **không** tạo atomic note khẳng định ý đó như đã hiểu.
+Chưa nắm chắc ý nào thì **không** tạo atomic note khẳng định ý đó như đã hiểu.
 
 ### Bước 6 — Tìm liên kết trong Vault, tạo note nếu cần
 
